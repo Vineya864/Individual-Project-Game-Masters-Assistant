@@ -1,0 +1,25 @@
+DEPLOYMENT INSTRUCTIONS
+-----------------------
+This file will detail how to deploy the system as is seen in the final report and the Live Demo.
+
+This system has been created and tested using xampp to install apache and mySQL.
+For the purpose of demonstraition these have been kept in the repo and kept in plain text. In a live deployment these would be kept secure through secrets managment.
+
+DATABASE
+--------
+To generate a working database for this system use the sql file found in this folder.
+This project has been created using the default username and password for the database to change these they can be accessed in env.php.
+
+PHP
+--------
+To deploy the PHP copy the project into its entirety into the htdocs of your apache instilation.
+The Project can now be accessed from.
+http://localhost/FinalYear/
+
+System Login
+------------
+Once the system is deployed an example account is avalible with 
+username: example_gm
+password: Password1!
+
+

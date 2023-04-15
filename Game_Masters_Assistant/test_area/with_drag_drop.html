@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="EN">
+
+<head>
+	<meta charset ="UTF-8"/>
+	  <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" />
+	<link href="Css/style_main.css" rel="stylesheet" />
+	<link href="Css/sizing.css" rel="stylesheet" />
+	<script src="Components/header.js" type="text/javascript" defer></script>
+	<script src="Components/drag_drop.js" type="text/javascript" defer></script>
+	<script src="Components/drop_grid.js" type="text/javascript" defer></script>
+	<script src="Components/collapsibles.js" type="text/javascript" defer></script>
+	<script src="Components/footer.js" type="text/javascript" defer></script>
+	<title> Final Year Project		
+	</title>
+		
+</head>
+
+<body>
+<header-component></header-component> 
+
+	
+	<main>
+
+	
+	<section id="Grid">
+	<div class="grid-container">
+	<div class="item1">Connected Players:
+	Campain_name</div>
+	
+	<div class="item2">
+	<section id="pins">
+	
+	<button type="button" class="collapsible">Characters</button>
+	<div class="collapsible_content">
+	<div class="drop_location" ondrop="drop(event)" ondragover="allowDrop(event)">
+	<img id="pin1" src="Resources/chessboard.jpg" draggable="true" ondragstart="drag(event)" width="30" height="30">
+	</div>
+	
+	</div>
+	
+	<script>
+	
+	
+	
+	</section>
+	</div>
+	
+	<div class="item3">
+	<div id = "drop_grid">
+	<div class="drop_location" id=="drop_location1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+	<div class="drop_location" id=="drop_location2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+	<div class="drop_location" id=="drop_location3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+	<div class="drop_location" id=="drop_location4" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+	<div class="drop_location" id=="drop_location5" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+	<div class="drop_location" id=="drop_location6" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    </div>
+	</div>  
+	<div class="item4">dropdowns</div>
+	<div class="item5">tools</div>
+	</div>
+	
+	
+	
+	</section>
+		
+	</main>
+<footer-component></footer-component>
+
+
+</body>
+</html>

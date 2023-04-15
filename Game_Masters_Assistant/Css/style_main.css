@@ -1,0 +1,430 @@
+*{
+  
+}
+/*header css options*/
+header {	
+	padding: 1.1em ;
+	background-color: #C0C0C0;
+}
+header #log-in{	
+	text-align:right;
+}
+header a{	
+	text-decoration: none;
+	color:black;
+	font-size:1.125em;
+}
+header #nav-bar li  { 
+	 display: inline-block;
+	 margin: 0px 50px;
+}
+footer {
+	padding: 1.1em ;
+	background-color: #C0C0C0;
+	text-align:center;
+}
+
+.account_footer {
+	padding-top: 400px ;
+	}
+.Buttons button{
+	margin: 3.125em 12.5em;
+	display: inline-block;
+	border-radius: 3.125em;
+	background-color: #909090;
+	border: none;
+	color: black;
+	text-align: center;
+	font-size: 1.75em;
+	padding: 3.125em 3.75px;
+	width: 60%;
+	transition: all 0.5s;
+	cursor: pointer;
+	margin: 0.3125em 3.8em;
+	
+}
+.Buttons button:hover {
+  background-color: #A9A9A9;
+  color: black;
+}
+.Buttons button:active {
+  box-shadow: 0 2px #666;
+  transform: translateY(7px);
+}
+
+/*grid layout*/
+.item1 { 
+grid-area: header; 
+
+}
+.item2 { 
+grid-area: drop_downs; 
+}
+.item3 {
+grid-area: main; 
+}
+
+.item4 { 
+grid-area: chat; 
+}
+.item5 {
+grid-area: talk; 
+}
+.item6 {
+grid-area: tools; 
+}
+.item7{
+  grid-area: images;
+}
+.item1 h1{
+  font-size: 30px
+}
+.item1 h3{
+  font-size: 20px
+}
+.item4 h3{
+  font-size: 20px
+}
+.item5 h3{
+  font-size: 20px
+}
+.item5 input[type=button], input[type=submit]{
+  margin: 10px 10px
+}
+.item6 h3{
+  font-size: 20px
+}
+.item6 input[type=button], input[type=submit],button{
+  margin: 5px 5px
+}
+.item7 h3{
+  font-size: 20px
+}
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    'header header header header header header'
+    'drop_downs main main main main chat'
+    'tools tools images images images talk';
+  gap: 10px;
+  background-color: #2196F3;
+  padding: 10px;
+  grid-template-rows: 1 3 1 ;
+  background-color:#fcf3e7
+}
+
+.grid-container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
+}
+
+/*collapsible menus*/
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.content {
+  padding: 0 10px;
+  max-height: 0;
+  overflow: auto;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
+  opacity:0.9;
+}
+
+/*options page */
+.user_options{
+  text-align: center;
+
+}
+.user_options h1{
+  margin-top: 5%;
+}
+.user_options ul{
+	display: inline-block;
+	text-align: left;
+  font-size: 24px; 
+  position:relative;
+}
+.user_options li{
+  margin-top: 10px;
+  margin-bottom: 10px; 
+}
+.index_footer{
+  position: absolute;
+  bottom: 0;
+  width:100%;
+}
+.index_footer_padded{
+  padding-top:170px;
+  bottom: 0;
+  width:100%;
+}
+
+#login{
+  text-align: center;
+  padding-bottom:72px
+}
+#login h1{
+  margin-top: 5%;
+}
+
+#my_account h1, #my_account h2{
+  text-align: center;
+}
+#account_characters{
+  float:left;
+  margin-left:30%;
+  max-height: 300px;
+  min-width: 200px;
+  overflow-y: auto;
+}
+#account_change{
+  float:right;
+  margin-right:20%;
+}
+#Campaign_creation{
+  text-align: center;
+}
+#campaign_selection_list{
+  text-align: center;
+
+}
+.selection_footer{
+  bottom: 0;
+  width:100%;
+  padding-top: 120px;
+}
+.join_selection_footer{
+  bottom: 0;
+  width:100%;
+  padding-top: 50px;
+}
+#campaigns{
+  overflow-y: auto;
+  max-height: 250px;
+  min-height: 250px;
+}
+#invites{
+  overflow-y: auto;
+  max-height: 200px;
+  min-height: 100px;
+}
+#management_options{
+  text-align: center;
+  position:relative;
+  margin-bottom:5%;
+  padding-bottom:100px;
+  overflow-y: auto;
+  max-height: 400px;
+  min-height: 300px;
+  
+}
+
+.management_title{
+  text-align: center;  
+}
+.manage_footer{
+  position: fixed;
+  bottom: 0;
+  width:100%;
+}
+.manage_footer_padded{
+  margin-top:60px;
+  bottom: 0;
+  width:100%;
+}
+.profile_footer{
+margin-top:10%;
+}
+
+/* chat function */
+.chatbox{
+  max-height: 500px;
+  overflow-y: auto;
+  text-align: left;
+}
+.insert_message button{
+  padding:10px 10px;
+  font-size: 20px;
+}
+.message p{
+  font-size:20px;
+}
+
+/*character sheets*/
+#character_sheet{
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color:#fcf3e7;
+  margin: auto;
+  width: 70%;
+  opacity: 1;
+}
+#character_sheet #character_name{
+  text-align: center;
+}
+
+#note_collection{
+  background-color:#fcf3e7;
+  opacity: 1;
+  overflow-y: auto;
+  max-height: 400px;
+  min-height: 400px;
+
+  }
+.edit-note{
+  text-align: center;
+}
+
+#character_picture img{
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 150px;
+ 
+}
+#character_sheet .collapsible {
+  background-color: rgb(230, 227, 227);
+  color: black;
+  cursor: pointer;
+  padding: 18px;
+  width: 25%;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-size: 30px;
+}
+#character_sheet #character_name{
+  font-size: 30px;
+}
+.characters .content {
+  padding: 0 10px;
+  max-height: 0;
+  overflow: auto;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
+  font-size: 12px;
+}
+.characters .content h1 {
+  margin: 5px 5px;
+  font-size: 12px;
+}
+.characters .content form{
+  margin: 0px 0px
+}
+#character_sheet textarea {
+  width: 50%;
+  height: 150px;
+  resize: none;
+}
+
+
+/*shared images*/
+.shared_image img{
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 550px;
+}
+
+#image_selection img{
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 50px;
+}
+
+.image_selector{
+  float:left;
+}
+
+.images .collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  width: 25%;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-size: 14px;
+}
+
+.images .content {
+  padding: 0 10px;
+  max-height: 10;
+  overflow: auto;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
+  font-size: 12px;
+  margin:  auto;
+}
+
+
+/*manage npc */
+#manage_NPCs h3{
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+#all_npc {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+#all_npc form{
+  margin-left: 10px;
+}
+#npc_creation{
+  text-align: center;
+  padding-bottom: 50px;
+}
+/*notes*/
+.edit-note textarea {
+  width: 100%;
+  height: 150px;
+  resize: none;
+}
+
+#all_items .collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 98%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+#help_collapsibles{
+  width:98%;
+}
+
+/*drop grid*/
+.drop_grid {
+	 display: grid;	
+}
+.drop_location {
+  float: left;
+  width: 10px;
+  height: 10px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid black;
+  
+}
