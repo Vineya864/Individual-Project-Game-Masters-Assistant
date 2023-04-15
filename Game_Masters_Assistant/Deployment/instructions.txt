@@ -19,7 +19,7 @@ http://localhost/FinalYear/
 System Login
 ------------
 Once the system is deployed an example account is avalible with 
-username: example_gm
+username: example_user
 password: Password1!
 
 

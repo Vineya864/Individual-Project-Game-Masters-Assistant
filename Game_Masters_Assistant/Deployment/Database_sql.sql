@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2023 at 07:49 PM
+-- Generation Time: Apr 15, 2023 at 05:23 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -245,7 +245,6 @@ CREATE TABLE `shared_images` (
 --
 
 INSERT INTO `shared_images` (`IMAGE_ID`, `PATH`, `ACTIVE`, `CAMPAIGN_ID`, `BACK_GROUND`) VALUES
-(23, '../Resources/uploads/1/satyr.jpg', 0, 1, 0),
 (24, '../Resources/uploads/1/Ocean-sea-water-tile-texture-map-assets-night.jpg', 0, 1, 1),
 (25, '../Resources/uploads/1/chessboard.jpg', 1, 1, 0);
 
