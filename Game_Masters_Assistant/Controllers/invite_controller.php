@@ -16,8 +16,7 @@ class InviteController {
     private $username;
     private $password;
     private $pdo;
-	# define the constructor which has four arguments for $server, $dbname, $username, $password. 
-	# The $pdo field should be assigned as null  
+	// set vairiables for connection
 
 	public function __construct($a,$b){
 		$this->server = $a;
@@ -28,7 +27,7 @@ class InviteController {
 	}
 	
 	
-	
+	//connect to the database
 	public function Connect(){
 		
 		try{
@@ -42,7 +41,7 @@ class InviteController {
 	<?php	
 	}
 	}
-
+	//create a new invite without response
 	public function send_invite($userID, $campaignID){
 		$this->Connect();
 		$sth= $this->pdo->prepare("INSERT INTO invites(PLAYER_ID, CAMPAIGN_ID) VALUES(?,?)");
@@ -50,7 +49,7 @@ class InviteController {
 		return $this->pdo->lastInsertId();		
 				
 	}
-
+	//get all accepted user invites and display using view
 	public function ShowAccepted($userID,$token){
 		$campaign  = new CampaignController(null,null);
 		$view = new CampaignView();
@@ -62,7 +61,7 @@ class InviteController {
 			$view->showCampaignSelectionByID($campaign_found,$token);
 		}
 	}
-
+	//show all invited campaings without a response uses view
 	public function ShowInvited($userID,$token){
 		$campaign  = new CampaignController(null,null);
 		$view = new CampaignView();
@@ -81,7 +80,7 @@ class InviteController {
 	}
 
 
-
+//check if invited to campaign
 public function invited($userID,$inviteID){
 	$this->Connect();
 	$sth=$this->pdo->prepare(" SELECT * FROM invites where PLAYER_ID = ? INTERSECT SELECT * FROM `invites` Where CAMPAIGN_ID = ? ;");
@@ -95,13 +94,13 @@ public function invited($userID,$inviteID){
 	}
 
 }
-
+//update the invite true or false
 	public function resolve_invite($id, $answer){
 		$this->Connect();
 		$sth=$this->pdo->prepare("UPDATE invites SET RESPONSE=? WHERE INVITE_ID =? ");
 		$sth->execute([$answer,$id]);
 	}
-
+//find if the user has been ivited what the ivite number was
 	public function getIdByUserIdCampaignId($remove_user,$campaign_id){
 		$this->Connect();
 		$sth=$this->pdo->prepare(" SELECT * FROM invites where CAMPAIGN_ID = ? INTERSECT SELECT * FROM `invites` Where PLAYER_ID like ? ;");
@@ -112,7 +111,7 @@ public function invited($userID,$inviteID){
 		}
 
 	}
-
+//show all players that have accepted invites uses view
 	public function showAllPlayers($campaign_id){
 		$user  = new UserController(null,null);
 		$view = new InviteView();
@@ -125,13 +124,13 @@ public function invited($userID,$inviteID){
 		}
 
 	}
-
+//delet an invite with id
 	public function remove_invite($id){
 		$this->Connect();
 		$sth=$this->pdo->prepare("DELETE FROM invites WHERE INVITE_ID =?; ");
 		$sth->execute([$id]);		
 	}
-
+//delete all invites linked to campaign
 	public function delete_campaign($id){
 		$this->Connect();
 		$sth=$this->pdo->prepare("DELETE FROM invites WHERE CAMPAIGN_ID  =?; ");
@@ -141,7 +140,7 @@ public function invited($userID,$inviteID){
 
 	
 
-
+//get list of all ids from the campaign users.
 	public function campaignMessage($id){
 		$this->Connect();
 		$sth=$this->pdo->prepare("SELECT * FROM `invites` WHERE CAMPAIGN_ID =? INTERSECT SELECT * FROM `invites` Where RESPONSE like '1'; ");

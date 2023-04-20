@@ -15,16 +15,16 @@
 include_once("../Controllers/item_controller.php");
 session_start();
 if (empty($_SESSION['token'])) {
-	$url='login.php';//redirect to account	
+	$url='login.php';//redirect to login	
 	echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
 }else{
 $token = $_SESSION['token'];
 if (empty($_SESSION['login'])) {
-	$url='login.php';//redirect to account	
+	$url='login.php';//redirect to login	
 	echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
 }else{
 if(empty($_SESSION["Campaign"])){
-	$url='launch_selection.php';//redirect to account	
+	$url='launch_selection.php';//redirect to launch	
 	echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
 }else{
 ?>
@@ -35,7 +35,7 @@ if(empty($_SESSION["Campaign"])){
 <?php
 	if (isset($_POST["Create_item"])) {
 		if (isset($_SESSION["login"])) {//if logged in
-			if (!empty($_POST['token'])) {//if ther is a token
+			if (!empty($_POST['token'])) {//if there is a token
 				if (hash_equals($_SESSION['token'], $_POST['token'])) {//if token matches 
 					 $ITEM_NAME=filter_var($_REQUEST['name'], FILTER_SANITIZE_STRING);//sanatize input
 					 $ITEM_DESCRIPTION=filter_var($_REQUEST['description'], FILTER_SANITIZE_STRING);

@@ -13,7 +13,7 @@
 	<?php
 include_once("../Controllers/status_effects_controller.php");
 session_start();
-//redirect
+//redirects
 if (empty($_SESSION['token'])) {
 	$url='login.php';
 	echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
@@ -40,7 +40,7 @@ if(empty($_SESSION["Campaign"])){
 <?php
 	if (isset($_POST["Create_Effect"])) {
 		if (isset($_SESSION["login"])) {//if logged in
-			if (!empty($_POST['token'])) {//if ther is a token
+			if (!empty($_POST['token'])) {//if there is a token
 				if (hash_equals($_SESSION['token'], $_POST['token'])) {//if token matches 
 					 $EFFECT_NAME=filter_var($_REQUEST['name'], FILTER_SANITIZE_STRING);
 					 $NOTES= filter_var($_REQUEST['notes'], FILTER_SANITIZE_STRING);

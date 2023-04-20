@@ -12,8 +12,7 @@ class PlayerCharacterController {
     private $username;
     private $password;
     private $pdo;
-	# define the constructor which has four arguments for $server, $dbname, $username, $password. 
-	# The $pdo field should be assigned as null  
+	//set up vairables
 
 	public function __construct($a,$b){
 		$this->server = $a;
@@ -24,7 +23,7 @@ class PlayerCharacterController {
 	}
 	
 	
-	
+	//conect to the database 
 	public function Connect(){
 		
 	try{
@@ -40,7 +39,7 @@ class PlayerCharacterController {
 	}
 	
 	
-	
+	//retunr character using character id
 	public function getPlayerCharacterById($id) {
 		$this->Connect();
 		$query=$this->pdo->prepare("SELECT * FROM `campaign_characters` WHERE CHARACTER_ID =?;");
@@ -51,7 +50,7 @@ class PlayerCharacterController {
 		return new PlayerCharacter($row["CHARACTER_ID"], $row["CHARACTER_NAME"],$row["CHARACTER_STATS"], $row["PICTURE"],$row["CHARACTER_NOTES"]  );
 		}
 	}
-
+//get the users name from their id
 	public function getIDFromName($given_id){
 		$this->Connect();
 		$id=filter_var($given_id,FILTER_SANITIZE_STRING);
@@ -60,7 +59,7 @@ class PlayerCharacterController {
 		$row=$query->fetch();
 		return $row[0];
 	}
-	
+	//show all characters in the campaign, uses character view
 	public function showCampainCharacters($id,$token){
 		$this->Connect();
 		$sth=$this->pdo->prepare("SELECT * FROM `campaign_characters` WHERE CAMPAIGN_ID =?; ");
@@ -74,7 +73,7 @@ class PlayerCharacterController {
 			}
 		
 	}
-
+//show characters that are owened by the user. uses view
 	public function showMyCampainCharacters($campaign_id,$user_id,$token) {
 		$this->Connect();
 		$sth=$this->pdo->prepare("SELECT * FROM `campaign_characters` WHERE CAMPAIGN_ID =? INTERSECT SELECT * FROM `campaign_characters` WHERE USER_ID = ?; ");
@@ -85,7 +84,7 @@ class PlayerCharacterController {
 				$view->displayCharacterDropDown($character,$token);
 			}
 	}
-
+//show all characters in the campaign
 	public function showAllUserCharacters($id, $token){
 		$this->Connect();
 		$sth=$this->pdo->prepare("SELECT * FROM `campaign_characters` WHERE USER_ID = ?; ");
@@ -98,7 +97,7 @@ class PlayerCharacterController {
 			}
 	}
 	
-
+//DEPRICATED USE INVITE MESSAGES
 	public function campaignMessage($id){
 		$this->Connect();
 		$sth=$this->pdo->prepare("SELECT * FROM `campaign_characters` WHERE CAMPAIGN_ID =?; ");
@@ -113,7 +112,7 @@ class PlayerCharacterController {
 		return $destination;
 		
 	}
-
+//return the user id of the character
 	public function findOwner($character_id){
 		$this->Connect();
 		$sth=$this->pdo->prepare("SELECT * FROM `campaign_characters` WHERE CHARACTER_ID =?; ");
@@ -122,13 +121,13 @@ class PlayerCharacterController {
 		return 	$row["USER_ID"];	
 		}
 	}
-
+//update the character
 	public function edit_Character($NAME, $STATS, $character_id,$character_notes){
 		$this->Connect();
 		$sth=$this->pdo->prepare("UPDATE campaign_characters SET CHARACTER_NAME=?, CHARACTER_STATS=?, CHARACTER_NOTES=? WHERE CHARACTER_ID =? ");
 		$sth->execute([$NAME, $STATS,$character_notes, $character_id]);
 	}
-
+//add a character image does not deal with saving the image but will delete old image
 	public function add_image($character_id,$image){
 		$true_path =$image; 
 		$this->Connect();
@@ -151,7 +150,7 @@ class PlayerCharacterController {
 			}
 		}
 	}
-
+//delet the character and delete the character image
 	public function delete_Character($character_id, $campaign,$user_id){
 		$this->Connect();
 		$sth=$this->pdo->prepare("SELECT * FROM `campaign_characters` WHERE CHARACTER_ID =?; ");
@@ -167,7 +166,7 @@ class PlayerCharacterController {
 			unlink($picture); 
 		}
 	}
-	
+	//delete all characters linked to the account
 	public function deleteAccount($user_id){
 		$this->Connect();
 		$sth=$this->pdo->prepare("SELECT * FROM `campaign_characters` WHERE USER_ID = ?; ");
@@ -178,7 +177,7 @@ class PlayerCharacterController {
 		}
 
 	}
-
+//delet all campaign characters. uses the delete_character() function
 	public function delete_campaign($id){
 		$this->Connect();
 		$sth=$this->pdo->prepare("SELECT * FROM `campaign_characters` WHERE CAMPAIGN_ID = ?; ");
@@ -200,14 +199,14 @@ class PlayerCharacterController {
 	}
 	
 
-
+//save a new character to the database
 	public function create_character($character_name, $character_stats, $character_notes,$campaign_id,$owner){
 		$this->Connect();
 		$query = $this->pdo->prepare("INSERT INTO `campaign_characters` (`CHARACTER_NAME`,`CHARACTER_STATS`,`CHARACTER_NOTES`, `CAMPAIGN_ID`, `USER_ID`) VALUES(?,?,?,?,?)");
 		$query->execute([$character_name, $character_stats, $character_notes, $campaign_id, $owner]);
 	}
 
-
+//get the characters campaign id
 	public function get_character_campaign($id){
 		$this->Connect();
 		$sth=$this->pdo->prepare("SELECT * FROM `campaign_characters` WHERE CHARACTER_ID =?; ");

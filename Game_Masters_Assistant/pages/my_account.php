@@ -8,7 +8,7 @@
  */
 session_start();
 if (empty($_SESSION['token'])) {
-	$url='login.php';//redirect to account	
+	$url='login.php';//redirect to login	
 	echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
 }else{
 	include_once("../Controllers/user_controller.php");

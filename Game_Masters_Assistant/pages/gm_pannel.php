@@ -25,10 +25,10 @@ include_once("../Controllers/item_controller.php");
 include_once("../functions_php/errors.php");
 include_once("../functions_php/chat_functions.php");
 if (empty($_SESSION['login'])) {
-	$url='login.php';//redirect to account	
+	$url='login.php';//redirect to login
 	echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
 }elseif(empty($_SESSION["Campaign"])){
-	$url='launch_selection.php';//redirect to account	
+	$url='launch_selection.php';//redirect to launch	
 	echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
 }else{
 $user           = new UserController(null,null);
@@ -48,7 +48,7 @@ $campaign_model = new CampaignController(null,null);
 </style>
 <?php
 
-	if (isset($_POST["Open_Details_Character"])) {
+	if (isset($_POST["Open_Details_Character"])) { //open character sheet page and refresh gm page
 		if (hash_equals($_SESSION['token'], $_POST['token'])) {
 		$_SESSION['current_character']= filter_var($_POST['user_character'], FILTER_SANITIZE_STRING);
 		?>
@@ -60,7 +60,7 @@ $campaign_model = new CampaignController(null,null);
 			tokenError();
 		}
 	}
-	if (isset($_POST["Open_notes"])) {
+	if (isset($_POST["Open_notes"])) { //open notes and refresh
 		if (hash_equals($_SESSION['token'], $_POST['token'])) {	
 		?>
 		<script>window.open("notes_pannel.php");
@@ -72,7 +72,7 @@ $campaign_model = new CampaignController(null,null);
 		}
 	}
 
-	if (isset($_POST["manage_campaign"])) {
+	if (isset($_POST["manage_campaign"])) {//open the manage campaing window NO NEW WINDOw
 		if (hash_equals($_SESSION['token'], $_POST['token'])) {	
 		?>
 		<script>window.location.replace("manage_campaign.php");</script>
@@ -82,13 +82,13 @@ $campaign_model = new CampaignController(null,null);
 		}
 	}
 
-	if(isset($_POST["hide_images"])){
+	if(isset($_POST["hide_images"])){//clear all images
 		if($user_id==$campaign_model->getGMByCampagin($campaign_id)){
 		$image_model->clearImages($campaign_id);
 		}
 	}
 	
-	if(isset($_POST["hide_back"])){
+	if(isset($_POST["hide_back"])){//clear all background
 		if($user_id==$campaign_model->getGMByCampagin($campaign_id)){
 		$image_model->clearBack($campaign_id);
 		?><script> window.location.replace("gm_pannel.php"); </script>	<?php
@@ -96,20 +96,20 @@ $campaign_model = new CampaignController(null,null);
 	}
 
 
-	if (isset($_POST["Ground_Image"])){
+	if (isset($_POST["Ground_Image"])){//fund background image
 		$image_campaign=$image_model->getCampaign(filter_var($_POST['image_id'], FILTER_SANITIZE_STRING));
 		if($user_id==$campaign_model->getGMByCampagin($image_campaign)){
 			$image_model->setBackGroundImage(filter_var($_POST['image_id'], FILTER_SANITIZE_STRING),$campaign_id);
 			?><script> window.location.replace("gm_pannel.php"); </script>	<?php
 		}
 	}
-	if (isset($_POST["Change_Image"])) {
+	if (isset($_POST["Change_Image"])) {//add new image to main screen
 		$image_campaign=$image_model->getCampaign(filter_var($_POST['image_id'], FILTER_SANITIZE_STRING));
 		if($user_id==$campaign_model->getGMByCampagin($image_campaign)){
 			$image_model->shareImage(filter_var($_POST['image_id'], FILTER_SANITIZE_STRING),$campaign_id);	
 		}
 		}
-	if (isset($_POST["Delete_Image"])) {
+	if (isset($_POST["Delete_Image"])) {//remove the image
 		if (hash_equals($_SESSION['token'], $_POST['token'])) {
 			$image_campaign=$image_model->getCampaign(filter_var($_POST['image_id'], FILTER_SANITIZE_STRING));
 			if($user_id==$campaign_model->getGMByCampagin($image_campaign)){
@@ -125,7 +125,7 @@ $campaign_model = new CampaignController(null,null);
 			tokenError();
 		}
 	}
-	if (isset($_POST["Open_Details_NPC"])) {
+	if (isset($_POST["Open_Details_NPC"])) {//open npc page
 		if (hash_equals($_SESSION['token'], $_POST['token'])) {
 			
 		$_SESSION['current_npc']=filter_var($_POST['user_character'], FILTER_SANITIZE_STRING) ;
@@ -138,7 +138,7 @@ $campaign_model = new CampaignController(null,null);
 		}
 		
 	}
-	if (isset($_POST["Open_Details_Monster"])) {
+	if (isset($_POST["Open_Details_Monster"])) {//open monster page
 		if (hash_equals($_SESSION['token'], $_POST['token'])) {
 			
 		$_SESSION['current_monster']=filter_var($_POST['user_character'], FILTER_SANITIZE_STRING) ;
@@ -151,7 +151,7 @@ $campaign_model = new CampaignController(null,null);
 		}
 		
 	}
-	if (isset($_POST["Open_Details_Item"])) {
+	if (isset($_POST["Open_Details_Item"])) {//open item page
 		if (hash_equals($_SESSION['token'], $_POST['token'])) {	
 		$_SESSION['current_item']=filter_var($_POST['item_id'], FILTER_SANITIZE_STRING) ;
 		?>
@@ -163,7 +163,7 @@ $campaign_model = new CampaignController(null,null);
 		}	
 	}
 
-	if (isset($_POST["Open_Details_Effect"])) {
+	if (isset($_POST["Open_Details_Effect"])) {//open effect page
 		if (hash_equals($_SESSION['token'], $_POST['token'])) {
 		$_SESSION['current_effect']= $_POST['status_effect'];
 		?>

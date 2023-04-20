@@ -11,7 +11,7 @@ class CampaignController {
     private $username;
     private $password;
     private $pdo;
-
+	//populate variables
 	public function __construct($a,$b){
 		$this->server = $a;
 		$this->dbname = $b;
@@ -21,7 +21,7 @@ class CampaignController {
 	}
 	
 	
-	
+	//conntect to the database
 	public function Connect(){
 		
 	try{
@@ -36,7 +36,7 @@ class CampaignController {
 	}
 	}
 	
-		
+		//given id show camapign using view
 	public function showCampaignById($id) {
 		$this->Connect();
 		$query=$this->pdo->prepare("SELECT * FROM `campaign` WHERE CAMPAIGN_ID =?;");
@@ -50,7 +50,7 @@ class CampaignController {
 	
 		}
 	}
-
+	//using view show all campaigns owend by given dm
 	public function showCampaignByDm($gm, $token){
 		$this->Connect();
 		$query=$this->pdo->prepare("SELECT * FROM `campaign` WHERE GAME_MASTER_ID =?;");
@@ -62,7 +62,7 @@ class CampaignController {
 			}
 		}
 	}
-
+	//check if the id is a game master
 	public function isGM($gm){
 		$this->Connect();
 		$query=$this->pdo->prepare("SELECT * FROM `campaign` WHERE GAME_MASTER_ID =?;");
@@ -75,12 +75,11 @@ class CampaignController {
 		}
 		
 	}
-
+	//show all cAMPAIGS WITH ID using view
 	public function showCampaignSelectionByID($ID, $token){
 		$this->Connect();
 		$query=$this->pdo->prepare("SELECT * FROM `campaign` CAMPAIGN_ID =?;");
 		$query->execute([$gm]);
-		//$sth=$query->fetch();
 		while($row =  $query->fetch(PDO::FETCH_ASSOC)) {
 			if ($row != null){
 				$campaign_view= new campaignView(null,null);
@@ -88,7 +87,7 @@ class CampaignController {
 			}
 		}
 	}
-	
+	//return the campagin id
 	public function getCampaignById($id) {
 		$this->Connect();
 		$query=$this->pdo->prepare("SELECT * FROM `campaign` WHERE CAMPAIGN_ID =?;");
@@ -100,7 +99,7 @@ class CampaignController {
 		}
 	}
 
-
+	//return the id of the game master
 	public function getGMByCampagin($id) {
 		$this->Connect();
 		$query=$this->pdo->prepare("SELECT * FROM `campaign` WHERE CAMPAIGN_ID =?;");
@@ -112,7 +111,7 @@ class CampaignController {
 		}
 	}
 
-
+	//upload a new campaing to database
 	public function createCampaign($name, $masterId ){
 		$this->Connect();
 		$query = $this->pdo->prepare("INSERT INTO `campaign` (`CAMPAIGN_NAME`, `GAME_MASTER_ID`) VALUES(?,?)");
@@ -121,13 +120,13 @@ class CampaignController {
 		return $this->pdo->lastInsertId();		
 	}
 
-
+	//change owner ship of given campaign to given user
 	public function change_master($campaign_id,$id){
 		$this->Connect();
 		$sth=$this->pdo->prepare("UPDATE `campaign` SET GAME_MASTER_ID=? WHERE CAMPAIGN_ID =? ");
 		$sth->execute([$id,$campaign_id]);
 	}
-
+	//remove the campaign from the databases
 	public function delete_campaign($campaign_id){
 		$this->Connect();
 		$sth=$this->pdo->prepare("DELETE FROM `campaign` WHERE CAMPAIGN_ID =?; ");

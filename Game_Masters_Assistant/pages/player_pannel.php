@@ -23,10 +23,10 @@ include_once("../functions_php/errors.php");
 include_once("../functions_php/chat_functions.php");
 
 if (empty($_SESSION['login'])) {
-	$url='login.php';//redirect to account	
+	$url='login.php';//redirect to login	
 	echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
 }elseif(empty($_SESSION["Campaign"])){
-	$url='launch_selection.php';//redirect to account	
+	$url='launch_selection.php';//redirect to launch	
 	echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
 }else{
 $user          = new UserController(null,null);

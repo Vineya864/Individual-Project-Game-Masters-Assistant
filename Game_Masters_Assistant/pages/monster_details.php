@@ -11,7 +11,7 @@ include_once("../views/npc_monster_view.php");
 include_once("../Controllers/campaign_controller.php");
 session_start();
 if (empty($_SESSION['token'])) {
-	$url='login.php';//redirect to account	
+	$url='login.php';//redirect to login	
 	echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
 }else{
 $token = $_SESSION['token'];
@@ -19,10 +19,10 @@ $token = $_SESSION['token'];
 
 
 if (empty($_SESSION['login'])) {
-	$url='login.php';//redirect to account	
+	$url='login.php';//redirect to login	
 	echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
 }elseif(empty($_SESSION["Campaign"])){
-	$url='launch_selection.php';//redirect to account	
+	$url='launch_selection.php';//redirect to launch	
 	echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
 }else{
 $user           = new UserController(null,null);

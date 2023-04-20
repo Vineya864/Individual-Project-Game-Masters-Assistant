@@ -15,6 +15,7 @@ $campaign= new CampaignController(null,null);
 $user= new UserController(null,null);
 $user_class = ($user->getUserByUsername($_SESSION['login']));
 $user_id = $user_class->id;
+//launch the campaing
 if (isset($_POST["Campaign"])) {
 	if (hash_equals($_SESSION['token'], $_POST['token'])) {
 		if ($user_id==$campaign->getGMByCampagin($_REQUEST['Campaign_id'])){

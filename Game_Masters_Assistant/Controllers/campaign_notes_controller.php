@@ -11,8 +11,8 @@ class CampaignNotesController {
     private $username;
     private $password;
     private $pdo;
-	# define the constructor which has four arguments for $server, $dbname, $username, $password. 
-	# The $pdo field should be assigned as null  
+// define the constructor which has four arguments for $server, $dbname, $username, $password. 
+	// The $pdo field should be assigned as null  
 
 	public function __construct($a,$b){
 		$this->server = $a;
@@ -23,7 +23,7 @@ class CampaignNotesController {
 	}
 	
 	
-	
+	//connect to database
 	public function Connect(){
 		
 	try{
@@ -40,7 +40,7 @@ class CampaignNotesController {
 	
 	
 
-	
+	//show the notes for the owner and campaign
 	public function ShowNotes($ownerID, $campaignID,$token) {
 		$this->Connect();
 		$query=$this->pdo->prepare("SELECT * FROM `notes` WHERE CAMPAIGN_ID =?  INTERSECT SELECT * FROM `notes` WHERE OWNER_ID = ? ;");	
@@ -54,25 +54,25 @@ class CampaignNotesController {
 		
 
 	}
-
+	//create a new note and save to database
 	public function create_note($note_chapter,$note_text,$user_id,$campaign_id){
 		$this->Connect();
 		$query = $this->pdo->prepare("INSERT INTO`notes` (`CAMPAIGN_ID`,`OWNER_ID`, `CHAPTER`, `NOTES`) VALUES(?,?,?,?)");
 		$query->execute([$campaign_id, $user_id, $note_chapter,$note_text]);
 	}
-
+	//update the saved note
 	public function edit_note($note_chapter, $note_text, $note_id){
 		$this->Connect();
 		$sth=$this->pdo->prepare("UPDATE `notes` SET CHAPTER=?, NOTES=? WHERE NOTE_ID =? ");
 		$sth->execute([$note_chapter, $note_text, $note_id]);
 	}
-
+	//remove not from databse
 	public function delete_note($note_id){
 		$this->Connect();
 		$sth=$this->pdo->prepare("DELETE FROM `notes` where NOTE_ID =? ;");
 		$sth->execute([$note_id]);
 	}
-
+	//return given id note if found
 	public function getNoteByID($id){
 		$this->Connect();
 		$query=$this->pdo->prepare("SELECT * FROM `notes` where NOTE_ID =? ;");
@@ -83,14 +83,14 @@ class CampaignNotesController {
 		}
 	}
 
-
+	//delete all notes linked to campaign 
 	public function delete_campaign($campaign_id){
 		$this->Connect();
 		$sth=$this->pdo->prepare("DELETE FROM `notes` where CAMPAIGN_ID =? ;");
 		$sth->execute([$campaign_id]);
 	}
 
-
+	//check that the given id has access to the note
 	public function check_owner($userId, $noteId){
 		if($userId==($this->getNoteByID($noteId))->owner_id){
 			return true;

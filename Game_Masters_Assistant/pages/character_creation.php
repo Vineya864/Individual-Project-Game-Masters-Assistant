@@ -26,7 +26,7 @@ if (empty($_SESSION['login'])) {
 	echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
 }else{
 if(empty($_SESSION["Campaign"])){
-	$url='launch_selection.php';//redirect to account	
+	$url='launch_selection.php';//redirect to selection	
 	echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
 }else{
 $user          = new UserController(null,null);

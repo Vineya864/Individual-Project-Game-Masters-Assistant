@@ -8,8 +8,7 @@ private $dbname;
 private $username;
 private $password;
 private $pdo;
-# define the constructor which has four arguments for $server, $dbname, $username, $password. 
-# The $pdo field should be assigned as null  
+//construct and initalise
 
 public function __construct($a,$b){
     $this->server = $a;
@@ -18,7 +17,7 @@ public function __construct($a,$b){
 	$this->password = apache_getenv('PASSWORD');
     $this->pdo =null;
 }
-
+//connect to the database
 public function Connect(){
     
     try{
@@ -33,7 +32,7 @@ public function Connect(){
 }
 }
 
-
+//return the current active image
 public function getActiveimage($id) {
     $this->Connect();
     $query=$this->pdo->prepare("SELECT * FROM `shared_images` WHERE CAMPAIGN_ID =? AND ACTIVE = TRUE;");
@@ -43,6 +42,7 @@ public function getActiveimage($id) {
         return new SharedImage($row["IMAGE_ID"], $row["PATH"], $row["ACTIVE"],$row["BACK_GROUND"]);
     }
 }
+//return the current background image
 public function getBackGroundimage($id) {
     $this->Connect();
 
@@ -54,7 +54,7 @@ public function getBackGroundimage($id) {
         return new SharedImage($row["IMAGE_ID"], $row["PATH"], $row["ACTIVE"],$row["BACK_GROUND"]);
     }
 }
-
+//get image from id
 public function getImage($id) {
     $this->Connect();
 
@@ -66,7 +66,7 @@ public function getImage($id) {
         return new SharedImage($row["IMAGE_ID"], $row["PATH"], $row["ACTIVE"] ,$row["BACK_GROUND"]);
     }
 }
-
+//get campain id from image id
 public function getCampaign($id){
     $this->Connect();
 
@@ -79,7 +79,7 @@ public function getCampaign($id){
     }
 
 }
-
+//save a new image to database. does not handle file save
 public function addImage($location, $Campaign){
     $true_location=$location;
     $this->Connect();
@@ -88,7 +88,7 @@ public function addImage($location, $Campaign){
 }
 
 
-
+//show all images in the campaign
 public function showCampainImages($id,$token){
     $this->Connect();
     $sth=$this->pdo->prepare("SELECT * FROM `shared_images` WHERE CAMPAIGN_ID =?; ");
@@ -101,20 +101,21 @@ public function showCampainImages($id,$token){
         }
     
 }
-
+//set all active images to false for campagin
 public function clearImages($id){
     $this->Connect();
     $sth=$this->pdo->prepare("UPDATE `shared_images` SET ACTIVE = FALSE WHERE CAMPAIGN_ID =? AND ACTIVE = TRUE; ");
     $sth->execute([$id]);
 
 }
+//set all backgroun to false for campagin
 public function clearBack($id){
     $this->Connect();
     $sth=$this->pdo->prepare("UPDATE `shared_images` SET BACK_GROUND = FALSE WHERE CAMPAIGN_ID =? AND BACK_GROUND = TRUE; ");
     $sth->execute([$id]);
 }
 
-
+//set campaign background image set old image to false
 public function setBackGroundImage($id,$campaign){
     $this->Connect();
     $sth=$this->pdo->prepare("UPDATE `shared_images` SET BACK_GROUND = FALSE WHERE CAMPAIGN_ID =? AND BACK_GROUND = TRUE; ");
@@ -122,7 +123,7 @@ public function setBackGroundImage($id,$campaign){
     $sth=$this->pdo->prepare("UPDATE `shared_images` SET BACK_GROUND =TRUE WHERE IMAGE_ID =? AND CAMPAIGN_ID =? ; ");
     $sth->execute([$id,$campaign]);
 }
-
+//set campaign image set old image to false
 public function shareImage($id,$campaign){
     $this->Connect();
     $sth=$this->pdo->prepare("UPDATE `shared_images` SET ACTIVE = FALSE WHERE CAMPAIGN_ID =? AND ACTIVE = TRUE; ");
@@ -130,7 +131,7 @@ public function shareImage($id,$campaign){
     $sth=$this->pdo->prepare("UPDATE `shared_images` SET ACTIVE =TRUE WHERE IMAGE_ID =? AND CAMPAIGN_ID =? ; ");
     $sth->execute([$id,$campaign]);
 }
-
+//remove an image from the database does delete the file
 public function deleteImage($id){
     $this->Connect();
     $sth=$this->pdo->prepare("SELECT * FROM`shared_images` WHERE IMAGE_ID =? ; ");

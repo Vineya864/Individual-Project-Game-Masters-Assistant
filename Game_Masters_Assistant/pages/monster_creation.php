@@ -16,20 +16,20 @@
 include_once("../Controllers/NPC_monster_controller.php");
 session_start();
 if (empty($_SESSION['token'])) {
-	$url='login.php';//redirect to account	
+	$url='login.php';//redirect to login	
 	echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
 }else{
 $token = $_SESSION['token'];
 if (empty($_SESSION['login'])) {
-	$url='login.php';//redirect to account	
+	$url='login.php';//redirect to login
 	echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
 }else{
 if(empty($_SESSION["Campaign"])){
-	$url='launch_selection.php';//redirect to account	
+	$url='launch_selection.php';//redirect to launch	
 	echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
 }else{
 if($_SESSION['role']!="GM"){
-	$url='launch_selection.php';//redirect to account	
+	$url='launch_selection.php';//redirect to launch	
 	echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
 }
 ?>
@@ -40,7 +40,7 @@ if($_SESSION['role']!="GM"){
 <?php
 	if (isset($_POST["Create_npc"])) {
 		if (isset($_SESSION["login"])) {//if logged in
-			if (!empty($_POST['token'])) {//if ther is a token
+			if (!empty($_POST['token'])) {//if there is a token
 				if (hash_equals($_SESSION['token'], $_POST['token'])) {//if token matches 
 					 $NPC_NAME=filter_var($_REQUEST['name'], FILTER_SANITIZE_STRING);//sanatize input
 					 $NPC_STATS=filter_var($_REQUEST['stats'], FILTER_SANITIZE_STRING);

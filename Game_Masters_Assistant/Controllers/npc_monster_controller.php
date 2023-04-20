@@ -12,8 +12,7 @@ class NPCMonsterController {
     private $username;
     private $password;
     private $pdo;
-	# define the constructor which has four arguments for $server, $dbname, $username, $password. 
-	# The $pdo field should be assigned as null  
+//varaibles creation
 
 	public function __construct($a,$b){
 		$this->server = $a;
@@ -24,7 +23,7 @@ class NPCMonsterController {
 	}
 	
 	
-	
+	//connect to database
 	public function Connect(){
 		
 	try{
@@ -40,7 +39,7 @@ class NPCMonsterController {
 	}
 	
 	
-	
+	//return the moster using the id to search
 	public function getNPCMonsterById($id) {
 		$this->Connect();
 		$query=$this->pdo->prepare("SELECT * FROM `npc_monster` WHERE MONSTER_ID =?;");
@@ -50,7 +49,7 @@ class NPCMonsterController {
 			return new NPCMonster($row["MONSTER_ID"], $row["MONSTER_NAME"],$row["MONSTER_STATS"], $row["NOTES"], $row["ACTIVE"]  );
 		}
 	}
-	
+	//show a monster using the view
 	public function showCampainMonster($id,$token){
 		$this->Connect();
 		$sth=$this->pdo->prepare("SELECT * FROM `NPC_monster` WHERE CAMPAIGN_ID =? INTERSECT SELECT * FROM `NPC_monster` WHERE ACTIVE = 1; ");
@@ -63,7 +62,7 @@ class NPCMonsterController {
 			}
 		
 	}
-
+	//show the active sataus of a monster, uses view
 	public function showCampainMonsterActiveStatus($id,$token){
 		$this->Connect();
 		$sth=$this->pdo->prepare("SELECT * FROM `NPC_monster` WHERE CAMPAIGN_ID =?; ");
@@ -75,7 +74,7 @@ class NPCMonsterController {
 			}
 	}
 
-	
+	//change the active status of a monster
 	public function ChangeActiveStatus($id,$status){
 		$this->Connect();
 		$sth=$this->pdo->prepare("UPDATE npc_monster SET ACTIVE=? WHERE MONSTER_ID =? ");
@@ -83,7 +82,7 @@ class NPCMonsterController {
 		
 	}
 
-
+	//save a new monster to the database
 	public function create_monster($NPC_NAME, $NPC_STATS, $NOTES,$CAMPAIGN_ID ){
 	
 			$this->Connect();
@@ -92,25 +91,25 @@ class NPCMonsterController {
 				
 	}
 		
-
+	//delete a monster from the database
 	public function delete_NPC($character_id){
 		$this->Connect();
 		$sth=$this->pdo->prepare("DELETE FROM `npc_monster` WHERE MONSTER_ID =?; ");
 		$sth->execute([$character_id]);		
 	}
-
+	//update a monster in the database
 	public function edit_NPC($NPC_NAME, $NPC_STATS, $NOTES, $character_id){
 		$this->Connect();
 		$sth=$this->pdo->prepare("UPDATE npc_monster SET MONSTER_NAME=?, MONSTER_STATS=?, NOTES=? WHERE MONSTER_ID =? ");
 		$sth->execute([$NPC_NAME, $NPC_STATS, $NOTES, $character_id]);
 	}
-
+	//delete all monsters linked to a campaign
 	public function delete_campaign($id){
 		$this->Connect();
 		$sth=$this->pdo->prepare("DELETE FROM `npc_monster` WHERE CAMPAIGN_ID =?; ");
 		$sth->execute([$id]);		
 	}
-
+	//return the campaing id of the monster
 	public function get_campaign($npcId){
 		$this->Connect();
 		$sth=$this->pdo->prepare("SELECT * FROM `NPC_monster` WHERE MONSTER_ID =?; ");

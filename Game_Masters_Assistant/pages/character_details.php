@@ -12,7 +12,7 @@ include_once("../views/Player_character_view.php");
 session_start();
 $token = $_SESSION['token'];
 if (empty($_SESSION['login'])) {
-	$url='login.php';//redirect to account	
+	$url='login.php';//redirect to login	
 	echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
 }else{
 $charater_model = new  PlayerCharacterController(null,null);
@@ -42,7 +42,7 @@ if (isset($_POST["Delete_Character"])) {
 if (isset($_POST["Edit_Character"])) {
 	if( hash_equals($_SESSION['token'], $_POST['token'])){
 	$charater_model->edit_Character(filter_var($_REQUEST['name'], FILTER_SANITIZE_STRING),filter_var($_REQUEST['stats'], FILTER_SANITIZE_STRING),$character_id,filter_var($_REQUEST['character_notes'], FILTER_SANITIZE_STRING));
-	$url='character_details.php';//redirect to account	
+	$url='character_details.php';//redirect to details	
 	echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
 	}
 	

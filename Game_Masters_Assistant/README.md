@@ -26,18 +26,18 @@ contains reusable php functions
     -chat_functions.php
     -errors.php
 
-MODELS:
-contains the models to accsess and use classes and access database
-        -campaign_modle.php
-        -campaign_notes_model.php
-        -invite_model.php
-        -item_model.php
-        -message_model.php
-        -npc_character_model.php
-        -npc_monster_model.php
-        -Player_character_model.php
-        -shared_image_model.php
-        -user_model.php
+Controllers:
+contains the Controllers to accsess and use classes and access database
+        -campaign_controller.php
+        -campaign_notes_controller.php
+        -invite_controller.php
+        -item_controller.php
+        -message_controller.php
+        -npc_character_controller.php
+        -npc_monster_controller.php
+        -Player_character_controller.php
+        -shared_image_controller.php
+        -user_controller.php
 PAGES:
 contains all pages accessible by the user
 

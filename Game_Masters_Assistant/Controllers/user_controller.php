@@ -7,8 +7,7 @@ private $dbname;
 private $username;
 private $password;
 private $pdo;
-# define the constructor which has four arguments for $server, $dbname, $username, $password. 
-# The $pdo field should be assigned as null  
+//set up variables and construct
 
 public function __construct($a,$b){
     $this->server = $a;
@@ -19,7 +18,7 @@ public function __construct($a,$b){
 }
 
 
-
+//connect to the databse
 public function Connect(){
     
     try{
@@ -33,7 +32,7 @@ public function Connect(){
 <?php	
 }
 }
-
+//get user from user name 
 public function getUserByUsername($username) {
     $this->Connect();
     $query=$this->pdo->prepare("SELECT * FROM `user` WHERE user_name =?;");
@@ -43,7 +42,7 @@ public function getUserByUsername($username) {
         return new User($row["USER_ID"], $row["USER_NAME"]);
     }
   }
-
+//search for user using id
   public function getUserByID($id) {
     $this->Connect();
     $query=$this->pdo->prepare("SELECT * FROM `user` WHERE USER_ID =?;");
@@ -53,7 +52,7 @@ public function getUserByUsername($username) {
         return new User($row["USER_ID"], $row["USER_NAME"]);
     }
   }
-
+//search for id from the username
   public function getIdByUsername($username) {
     $this->Connect();
     $query=$this->pdo->prepare("SELECT * FROM `user` WHERE user_name =?;");
@@ -63,7 +62,7 @@ public function getUserByUsername($username) {
         return ($row["USER_ID"]);
     }
   }
-
+//retun true if user is in the databse using name or if name is invalid
 public function userExists($username){
     if(str_contains($username, 'dice') or str_contains($username, 'announce')  ){
       return true;
@@ -76,13 +75,13 @@ public function userExists($username){
         return true;
     }
   }
-
+//save a new account
 public function addAccount($username, $pass){
     $this->Connect();
     $query = $this->pdo->prepare("INSERT INTO`user` (`USER_NAME`,`USER_PASSWORD`) VALUES(?,?)");
     $query->execute([$username, $pass ]);
 }
-
+//check the password of user 
 public function checkPassword($pass, $name){
     $this->Connect();
      $query=$this->pdo->prepare("SELECT * FROM `user` WHERE user_name =?;");
@@ -98,13 +97,13 @@ public function checkPassword($pass, $name){
     return False;		  
   }
 
-
+//change the username MUST USE USER EXISTS FIRST
 public function changeName($oldUsername,$newUsername){
   $this->Connect();
   $sth=$this->pdo->prepare("UPDATE user SET USER_NAME=? WHERE USER_NAME =? ");
   $sth->execute([$newUsername,$oldUsername]);
 }
-
+//change the password of the user, will check the old password is correct
 public function changePassword($userName,$newPassword,$oldPassword){
   if($this->checkPassword($oldPassword,$userName)){
     $this->Connect();
@@ -115,7 +114,7 @@ public function changePassword($userName,$newPassword,$oldPassword){
   }
 }
 
-
+//remove the user from database
 public function deleteAccount($user_id){
   $this->Connect();
   $sth=$this->pdo->prepare("DELETE FROM `user` WHERE USER_ID =?; ");

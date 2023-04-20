@@ -12,8 +12,7 @@ class NPCCharacterController {
     private $username;
     private $password;
     private $pdo;
-	# define the constructor which has four arguments for $server, $dbname, $username, $password. 
-	# The $pdo field should be assigned as null  
+	//varaible and construction
 
 	public function __construct($a,$b){
 		$this->server = $a;
@@ -24,7 +23,7 @@ class NPCCharacterController {
 	}
 	
 	
-	
+	//connect
 	public function Connect(){
 		
 	try{
@@ -40,7 +39,7 @@ class NPCCharacterController {
 	}
 	
 	
-	
+	//retun character using the id
 	public function getNpcCharacterById($id) {
 		$this->Connect();
 		$query=$this->pdo->prepare("SELECT * FROM `npc_characters` WHERE NPC_ID =?;");
@@ -51,7 +50,7 @@ class NPCCharacterController {
 		return new NPCCharacter($row["NPC_ID"], $row["NPC_NAME"],$row["NPC_STATS"], $row["NOTES"], $row["ACTIVE"]  );
 		}
 	}
-	
+	//show all characters in the campaign when they are active
 	public function showCampainCharacters($id,$token){
 		$this->Connect();
 		$sth=$this->pdo->prepare("SELECT * FROM `NPC_characters` WHERE CAMPAIGN_ID =? INTERSECT SELECT * FROM `NPC_characters` WHERE ACTIVE = 1; ");
@@ -65,7 +64,7 @@ class NPCCharacterController {
 			}
 		
 	}
-
+//show if character is active
 	public function showCampainCharactersActiveStatus($id,$token){
 		$this->Connect();
 		$sth=$this->pdo->prepare("SELECT * FROM `NPC_characters` WHERE CAMPAIGN_ID =?; ");
@@ -77,7 +76,7 @@ class NPCCharacterController {
 			}
 	}
 
-	
+	//change the active status of a character
 	public function ChangeActiveStatus($id,$status){
 		$this->Connect();
 		$sth=$this->pdo->prepare("UPDATE npc_characters SET ACTIVE=? WHERE NPC_ID =? ");
@@ -85,7 +84,7 @@ class NPCCharacterController {
 		
 	}
 
-
+	//save a new npc to the database
 	public function create_NPC($NPC_NAME, $NPC_STATS, $NOTES,$CAMPAIGN_ID ){
 	
 			$this->Connect();
@@ -94,25 +93,25 @@ class NPCCharacterController {
 				
 	}
 		
-
+//remove npc from database
 	public function delete_NPC($character_id){
 		$this->Connect();
 		$sth=$this->pdo->prepare("DELETE FROM `npc_characters` WHERE NPC_ID =?; ");
 		$sth->execute([$character_id]);		
 	}
-
+//update an npc
 	public function edit_NPC($NPC_NAME, $NPC_STATS, $NOTES, $character_id){
 		$this->Connect();
 		$sth=$this->pdo->prepare("UPDATE npc_characters SET NPC_NAME=?, NPC_STATS=?, NOTES=? WHERE NPC_ID =? ");
 		$sth->execute([$NPC_NAME, $NPC_STATS, $NOTES, $character_id]);
 	}
-
+//delete all npc linked to the campaign
 	public function delete_campaign($id){
 		$this->Connect();
 		$sth=$this->pdo->prepare("DELETE FROM `npc_characters` WHERE CAMPAIGN_ID =?; ");
 		$sth->execute([$id]);		
 	}
-
+//get the campaign id for a character
 	public function get_campaign($npcId){
 		$this->Connect();
 		$sth=$this->pdo->prepare("SELECT * FROM `NPC_characters` WHERE NPC_ID =?; ");

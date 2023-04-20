@@ -11,8 +11,7 @@ class ItemController {
     private $username;
     private $password;
     private $pdo;
-	# define the constructor which has four arguments for $server, $dbname, $username, $password. 
-	# The $pdo field should be assigned as null  
+	//set up variables 
 
 	public function __construct($a,$b){
 		$this->server = $a;
@@ -23,7 +22,7 @@ class ItemController {
 	}
 	
 	
-	
+	//conect to the database
 	public function Connect(){
 		
 	try{
@@ -39,7 +38,7 @@ class ItemController {
 	}
 	
 	
-	
+	//get item from the id
 	public function getItemById($id) {
 		$this->Connect();
 		$query=$this->pdo->prepare("SELECT * FROM `items` WHERE ITEM_ID =?;");
@@ -50,7 +49,7 @@ class ItemController {
 		return new Item($row["ITEM_ID"], $row["ITEM_NAME"],$row["ITEM_DESCRIPTION"], $row["CAMPAIGN_ID"], $row["ACTIVE"], $row["HELD_BY"]  );
 		}
 	}
-	
+	//using view show all the items in the campaing that are active
 	public function showCampainItems($id,$token){
 		$this->Connect();
 		$sth=$this->pdo->prepare("SELECT * FROM `items` WHERE CAMPAIGN_ID =? INTERSECT SELECT * FROM `items` WHERE ACTIVE = 1; ");
@@ -64,7 +63,7 @@ class ItemController {
 			}
 		
 	}
-
+	//show is an item is active or not
 	public function showItemActiveStatus($id,$token){
 		$this->Connect();
 		$sth=$this->pdo->prepare("SELECT * FROM `items` WHERE CAMPAIGN_ID =?; ");
@@ -76,7 +75,7 @@ class ItemController {
 			}
 	}
 
-	
+	//update the active status of an item
 	public function ChangeActiveStatus($id,$status){
 		$this->Connect();
 		$sth=$this->pdo->prepare("UPDATE items SET ACTIVE=? WHERE Item_ID =? ");
@@ -84,7 +83,7 @@ class ItemController {
 		
 	}
 
-
+	//create a new item and save to database
 	public function create_Item($ITEM_NAME, $ITEM_DESCRIPTION, $CAMPAIGN_ID ){
 	
 			$this->Connect();
@@ -93,19 +92,19 @@ class ItemController {
 				
 	}
 		
-
+	//remove item from the database
 	public function delete_Item($item_id){
 		$this->Connect();
 		$sth=$this->pdo->prepare("DELETE FROM `items` WHERE ITEM_ID =?; ");
 		$sth->execute([$item_id]);		
 	}
-
+	//update an item in the database
 	public function edit_item($ITEM_NAME, $ITEM_DESCRIPTION, $ITEM_ID){
 		$this->Connect();
 		$sth=$this->pdo->prepare("UPDATE items SET ITEM_NAME=?, ITEM_DESCRIPTION=? WHERE ITEM_ID =? ");
 		$sth->execute([$ITEM_NAME, $ITEM_DESCRIPTION, $ITEM_ID]);
 	}
-
+	//remove a user from held_by list
 	public function drop_item($player_id,$item_id){
 		$this->Connect();
 		$list=$this->getItemById($item_id)->HELD_BY;
@@ -114,6 +113,7 @@ class ItemController {
 		$sth=$this->pdo->prepare("UPDATE items SET HELD_BY=? WHERE ITEM_ID =? ");
 		$sth->execute([$new_list, $item_id]);
 	}
+	//add user to held_BY LIST
 	public function add_item($player_id,$item_id){
 		$this->Connect();
 		$list=$this->getItemById($item_id)->HELD_BY;
@@ -122,12 +122,13 @@ class ItemController {
 		$sth->execute([$new_list, $item_id]);
 		return $this->pdo->lastInsertId();
 	}
+	//delete all items linked to a campaign
 	public function delete_campaign($campaign_id){
 		$this->Connect();
 		$sth=$this->pdo->prepare("DELETE FROM `items` WHERE CAMPAIGN_ID =?; ");
 		$sth->execute([$campaign_id]);		
 	}
-
+	//show if an item is held by a user
 	public function held_by($item_id,$user_id){
 		$this->Connect();
 		$search_id=",".$user_id.",";
@@ -142,7 +143,7 @@ class ItemController {
 		}
 	}
 	
-
+	//using view show all items linked to user
 	public function showMyItems($campaign_id,$user_id,$token) {
 		$this->Connect();
 		$search_id=",".$user_id.",";
@@ -154,7 +155,7 @@ class ItemController {
 				$view->displayItemDropDown($item,$token);
 			}
 	}
-
+	//for use when character deleted drop all items.
 	public function characterDrop($campaign_id,$user_id) {
 		$this->Connect();
 		$search_id=",".$user_id.",";

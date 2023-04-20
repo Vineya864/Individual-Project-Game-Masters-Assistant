@@ -4,11 +4,11 @@
 /**used by player to access a campaign and respond to invites */
 session_start();
 if (empty($_SESSION['token'])) {
-	$url='login.php';//redirect to account	
+	$url='login.php';//redirect to login	
 	echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
 }else{
 if (empty($_SESSION['login'])) {
-	$url='login.php';//redirect to account	
+	$url='login.php';//redirect to login	
 	echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
 }else{
 include_once("../functions_php/errors.php");
@@ -26,7 +26,7 @@ if (isset($_POST["Campaign"])) {
 		if($invite->invited($user_id,$_REQUEST['Campaign_id'])){
 			$_SESSION["Campaign"] = $_REQUEST['Campaign_id'];
    	 		$_SESSION["role"]= "PLAYER";
-			$url='player_pannel.php';//redirect to account
+			$url='player_pannel.php';//redirect to player view
 		}else{
 			$url='index.php';
 		}	

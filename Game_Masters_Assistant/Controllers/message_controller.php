@@ -11,8 +11,7 @@ class MessageController {
     private $username;
     private $password;
     private $pdo;
-	# define the constructor which has four arguments for $server, $dbname, $username, $password. 
-	# The $pdo field should be assigned as null  
+	//set up variables 
 
 	public function __construct($a,$b){
 		$this->server = $a;
@@ -23,7 +22,7 @@ class MessageController {
 	}
 	
 	
-	
+	//connect
 	public function Connect(){
 		
 		try{
@@ -37,7 +36,7 @@ class MessageController {
 	<?php	
 	}
 	}
-	
+	//return the message using id
 	public function getMessageById ($id){
 		$this->Connect();
 		$query=$this->pdo->prepare("SELECT * FROM `message` where MESSAGE_ID =? ;");
@@ -49,7 +48,7 @@ class MessageController {
 	
 	}
 	
-	
+	//using view show all messages in the campaign
 	public function showMessageByCampaignId($id,$destination) {
 		$this->Connect();
 		$sth=$this->pdo->prepare(" SELECT * FROM `message` where CAMPAIGN_ID = ? INTERSECT SELECT * FROM `message` Where DESTINATION like ? ORDER BY DATE_TIME ;");
@@ -63,7 +62,7 @@ class MessageController {
 	
 	}
 	
-	
+	//save a new message to the database using the current date
 	public function addMessage( $userId, $campaignId, $message, $destination, $username ){
 		$date = date("Y/m/d");
 		$this->Connect();

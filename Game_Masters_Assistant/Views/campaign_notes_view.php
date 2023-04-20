@@ -1,9 +1,11 @@
 <?php
 
 class campaignNotesView{
+
+//display of campaign notes
+
 	
-	
-	
+			//display the note in a tab. given the note ID	
 			public function displayCampaginNotesTabs($note){
 				?>
 				<div class="tab">
@@ -11,6 +13,7 @@ class campaignNotesView{
 				</div>
 				<?php	
 			}
+			//show the content of the campagin note
 			public function displayCampaginNotesContent($note,$token){
 				?>
 				<div id="<?php echo $note->id ?>" class="tabcontent">

@@ -5,6 +5,7 @@ if (hash_equals($_SESSION['token'], $_POST['token'])) {
   
 $token = $_SESSION['token'];
 $location ="../Resources/";
+//create file locations
 if (!file_exists($location)){
   mkdir($location);
 }
@@ -25,16 +26,16 @@ include_once("../Controllers/shared_image_controller.php");
 include_once("../Controllers/Player_character_controller.php");
 if(isset($_POST["submit"])) {
 if (hash_equals($_SESSION['token'], $_POST['token'])) {
+  //check if jpg
 	if($fileType !="jpg"){
-		$success=0;
-    
-}
+		$success=0;  
+  }
 if ($success == 0) {
   echo "Sorry, your file was not uploaded. Make sure it is in type .jpg";
   ?> <a href=<?php echo $return ?>>Back</a> <?php
 
 } else {
-
+//set up new file name
 	$temp = explode(".", $_FILES["fileToUpload"]["name"]);
 	$newfilename = filter_var($_FILES["fileToUpload"]["name"], FILTER_SANITIZE_STRING);
   if (!file_exists($location)){
@@ -43,9 +44,9 @@ if ($success == 0) {
   if($_POST['source']=="character_details.php"){
     $location=$location."player_images/";
     mkdir($location);
-  }
+  }//find correct location to save
   if($_POST['source']=="character_details.php"){
-    $character_id   = $_SESSION["current_character"];
+    $character_id   = $_SESSION["current_character"]; //save file
       if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $location.$character_id."_".$newfilename)) {   
       $character_model = new  PlayerCharacterController(null,null);
       $character      = $character_model->getPlayerCharacterById($character_id);
@@ -59,7 +60,7 @@ if ($success == 0) {
       echo "Sorry, there was an error uploading your file.";
       ?> <a href=<?php echo $return ?>>Back</a> <?php
     }  
-    }else{
+    }else{ //save file
       if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $location.$newfilename)) {  
     $image_model=new SharedImageController(null,null,);
     $image_model->addImage($location.$newfilename,$_SESSION['Campaign']);
